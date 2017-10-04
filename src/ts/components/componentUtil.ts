@@ -20,7 +20,7 @@ export class ComponentUtil {
     public static OBJECT_PROPERTIES = [
         'components', 'frameworkComponents', 'rowStyle', 'context', 'autoGroupColumnDef', 'groupColumnDef', 'localeText', 'icons', 'datasource',
         'enterpriseDatasource', 'viewportDatasource', 'groupRowRendererParams', 'aggFuncs',
-        'fullWidthCellRendererParams', 'defaultColGroupDef', 'defaultColDef', 'defaultExportParams', 'columnTypes'
+        'fullWidthCellRendererParams', 'defaultColGroupDef', 'defaultColDef', 'defaultExportParams', 'columnTypes', 'rowClassRules',
         //,'cellRenderers','cellEditors'
     ];
 

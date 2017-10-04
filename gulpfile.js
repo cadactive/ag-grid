@@ -134,7 +134,7 @@ function webpackTask(minify, styles) {
     }
     const mainFile = styles ? './main-with-styles.js' : './main.js';
 
-    let fileName = 'ag-grid';
+    var fileName = 'ag-grid';
     fileName += minify ? '.min' : '';
     fileName += styles ? '' : '.noStyle';
     fileName += '.js';
@@ -196,7 +196,7 @@ function scssTask() {
                                 { loader: 'postcss-loader', options: { syntax: 'postcss-scss', plugins: [ autoprefixer() ] } },
                             ]
                         })
-                    }, 
+                    },
                     {
                         test: /\.(svg)$/,
                         use: [
@@ -207,13 +207,13 @@ function scssTask() {
                                     limit: 8192
                                 }
                             },
-                            {   loader: 'image-webpack-loader', 
+                            {   loader: 'image-webpack-loader',
                                 options: {
                                     svgo: svgMinOptions
-                                } 
+                                }
                             },
-                            { 
-                                loader: require.resolve('./src/styles/svg-loader.js') 
+                            {
+                                loader: require.resolve('./src/styles/svg-loader.js')
                             }
                         ]
                     }
@@ -226,4 +226,3 @@ function scssTask() {
         .pipe(filter("**/*.css"))
         .pipe(gulp.dest('dist/styles/'));
 }
-

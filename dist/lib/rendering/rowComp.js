@@ -370,6 +370,8 @@ var RowComp = (function (_super) {
         // as data has changed, then the style and class needs to be recomputed
         this.postProcessStylesFromGridOptions();
         this.postProcessClassesFromGridOptions();
+        /** @CADACTIVE - setting row class rules */
+        this.postProcessRowClassRules();
     };
     RowComp.prototype.onExpandedChanged = function () {
         if (this.rowNode.group && !this.rowNode.footer) {
@@ -723,6 +725,8 @@ var RowComp = (function (_super) {
             classes.push(this.rowNode.expanded ? 'ag-row-group-expanded' : 'ag-row-group-contracted');
         }
         utils_1._.pushAll(classes, this.processClassesFromGridOptions());
+        /** @CADACTIVE - setting row class rules */
+        utils_1._.pushAll(classes, this.preProcessRowClassRules());
         return classes;
     };
     RowComp.prototype.stopEditing = function (cancel) {
@@ -844,6 +848,36 @@ var RowComp = (function (_super) {
             rowStyleFuncResult = rowStyleFunc(params);
         }
         return utils_1._.assign({}, rowStyle, rowStyleFuncResult);
+    };
+    /** @CADACTIVE - internal functions for row class rules */
+    RowComp.prototype.processRowClassRules = function (onApplicableClass, onNotApplicableClass) {
+        this.beans.stylingService.processRowClassRules(this.beans.gridOptionsWrapper.getRowClassRules(), {
+            data: this.rowNode.data,
+            node: this.rowNode,
+            api: this.beans.gridOptionsWrapper.getApi(),
+            context: this.beans.gridOptionsWrapper.getContext(),
+            $scope: this.scope
+        }, onApplicableClass, onNotApplicableClass);
+    };
+    /** @CADACTIVE - internal functions for row class rules */
+    RowComp.prototype.postProcessRowClassRules = function () {
+        var _this = this;
+        this.processRowClassRules(function (className) {
+            _this.eAllRowContainers.forEach(function (row) { return utils_1._.addCssClass(row, className); });
+        }, function (className) {
+            _this.eAllRowContainers.forEach(function (row) { return utils_1._.removeCssClass(row, className); });
+        });
+    };
+    /** @CADACTIVE - internal functions for row class rules */
+    RowComp.prototype.preProcessRowClassRules = function () {
+        var res = [];
+        this.processRowClassRules(function (className) {
+            res.push(className);
+        }, function (className) {
+            // not catered for, if creating, no need
+            // to remove class as it was never there
+        });
+        return res;
     };
     RowComp.prototype.createCells = function (cols) {
         var _this = this;

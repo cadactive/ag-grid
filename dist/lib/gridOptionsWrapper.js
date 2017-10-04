@@ -166,6 +166,7 @@ var GridOptionsWrapper = (function () {
     GridOptionsWrapper.prototype.getRowClass = function () { return this.gridOptions.rowClass; };
     GridOptionsWrapper.prototype.getRowStyleFunc = function () { return this.gridOptions.getRowStyle; };
     GridOptionsWrapper.prototype.getRowClassFunc = function () { return this.gridOptions.getRowClass; };
+    GridOptionsWrapper.prototype.getRowClassRules = function () { return this.gridOptions.rowClassRules; };
     GridOptionsWrapper.prototype.getPostProcessPopupFunc = function () { return this.gridOptions.postProcessPopup; };
     GridOptionsWrapper.prototype.getDoesDataFlowerFunc = function () { return this.gridOptions.doesDataFlower; };
     GridOptionsWrapper.prototype.getPaginationNumberFormatterFunc = function () { return this.gridOptions.paginationNumberFormatter; };
@@ -580,7 +581,7 @@ var GridOptionsWrapper = (function () {
     GridOptionsWrapper.prototype.isNumeric = function (value) {
         return !isNaN(value) && typeof value === 'number';
     };
-    // Material data table has strict guidelines about whitespace, and these values are different than the ones 
+    // Material data table has strict guidelines about whitespace, and these values are different than the ones
     // ag-grid uses by default. We override the default ones for the sake of making it better out of the box
     GridOptionsWrapper.prototype.specialForNewMaterial = function (defaultValue, materialValue) {
         if (this.environment.getTheme() == "ag-theme-material") {

@@ -175,8 +175,7 @@ var ComponentUtil = (function () {
     ComponentUtil.OBJECT_PROPERTIES = [
         'components', 'frameworkComponents', 'rowStyle', 'context', 'autoGroupColumnDef', 'groupColumnDef', 'localeText', 'icons', 'datasource',
         'enterpriseDatasource', 'viewportDatasource', 'groupRowRendererParams', 'aggFuncs',
-        'fullWidthCellRendererParams', 'defaultColGroupDef', 'defaultColDef', 'defaultExportParams', 'columnTypes'
-        //,'cellRenderers','cellEditors'
+        'fullWidthCellRendererParams', 'defaultColGroupDef', 'defaultColDef', 'defaultExportParams', 'columnTypes', 'rowClassRules',
     ];
     ComponentUtil.ARRAY_PROPERTIES = [
         'slaveGrids', 'alignedGrids', 'rowData',

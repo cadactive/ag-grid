@@ -119,6 +119,12 @@ export declare class RowComp extends Component {
     private preProcessStylesFromGridOptions();
     private postProcessStylesFromGridOptions();
     private processStylesFromGridOptions();
+    /** @CADACTIVE - internal functions for row class rules */
+    private processRowClassRules(onApplicableClass, onNotApplicableClass?);
+    /** @CADACTIVE - internal functions for row class rules */
+    private postProcessRowClassRules();
+    /** @CADACTIVE - internal functions for row class rules */
+    private preProcessRowClassRules();
     private createCells(cols);
     private onRowSelected();
     private callAfterRowAttachedOnCells(newCellComps, eRow);

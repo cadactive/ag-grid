@@ -93,6 +93,9 @@ export declare class GridOptionsWrapper {
     getRowClass(): string | string[];
     getRowStyleFunc(): Function;
     getRowClassFunc(): (params: any) => string | string[];
+    getRowClassRules(): {
+        [cssClassName: string]: string | Function;
+    };
     getPostProcessPopupFunc(): (params: PostProcessPopupParams) => void;
     getDoesDataFlowerFunc(): (data: any) => boolean;
     getPaginationNumberFormatterFunc(): (params: PaginationNumberFormatterParams) => string;

@@ -68,6 +68,30 @@ var StylingService = (function () {
             }
         }
     };
+    /** @CADACTIVE - internal functions for applying row class rules */
+    StylingService.prototype.processRowClassRules = function (rowClassRules, params, onApplicableClass, onNotApplicableClass) {
+        var classRules = rowClassRules;
+        if (typeof classRules === 'object' && classRules !== null) {
+            var classNames = Object.keys(classRules);
+            for (var i = 0; i < classNames.length; i++) {
+                var className = classNames[i];
+                var rule = classRules[className];
+                var resultOfRule = void 0;
+                if (typeof rule === 'string') {
+                    resultOfRule = this.expressionService.evaluate(rule, params);
+                }
+                else if (typeof rule === 'function') {
+                    resultOfRule = rule(params);
+                }
+                if (resultOfRule) {
+                    onApplicableClass(className);
+                }
+                else if (onNotApplicableClass) {
+                    onNotApplicableClass(className);
+                }
+            }
+        }
+    };
     __decorate([
         context_1.Autowired('expressionService'),
         __metadata("design:type", expressionService_1.ExpressionService)

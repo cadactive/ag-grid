@@ -183,6 +183,10 @@ export interface GridOptions {
     groupHeaderHeight?: number;
     pivotGroupHeaderHeight?: number;
     floatingFiltersHeight?: number;
+    /** @CADACTIVE: used for dynamically adding/removing classes for rows **/
+    rowClassRules?: {
+        [cssClassName: string]: (Function | string);
+    };
     /****************************************************************
      * Don't forget to update ComponentUtil if changing this class. *
      ****************************************************************/

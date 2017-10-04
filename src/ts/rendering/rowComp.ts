@@ -469,6 +469,9 @@ export class RowComp extends Component {
         // as data has changed, then the style and class needs to be recomputed
         this.postProcessStylesFromGridOptions();
         this.postProcessClassesFromGridOptions();
+
+        /** @CADACTIVE - setting row class rules */
+        this.postProcessRowClassRules();
     }
 
     private onExpandedChanged(): void {
@@ -873,6 +876,9 @@ export class RowComp extends Component {
 
         _.pushAll(classes, this.processClassesFromGridOptions());
 
+        /** @CADACTIVE - setting row class rules */
+        _.pushAll(classes, this.preProcessRowClassRules());
+
         return classes;
     }
 
@@ -1006,6 +1012,50 @@ export class RowComp extends Component {
         }
 
         return _.assign({}, rowStyle, rowStyleFuncResult);
+    }
+
+    /** @CADACTIVE - internal functions for row class rules */
+    private processRowClassRules(onApplicableClass:(className:string)=>void, onNotApplicableClass?:(className:string)=>void): void {
+        this.beans.stylingService.processRowClassRules(
+            this.beans.gridOptionsWrapper.getRowClassRules(),
+            {
+                data: this.rowNode.data,
+                node: this.rowNode,
+                api: this.beans.gridOptionsWrapper.getApi(),
+                context: this.beans.gridOptionsWrapper.getContext(),
+                $scope: this.scope
+            }, onApplicableClass, onNotApplicableClass
+        );
+    }
+
+    /** @CADACTIVE - internal functions for row class rules */
+    private postProcessRowClassRules(): void {
+        this.processRowClassRules(
+            (className:string)=>{
+                this.eAllRowContainers.forEach( row => _.addCssClass(row, className));
+            },
+            (className:string)=>{
+              this.eAllRowContainers.forEach( row => _.removeCssClass(row, className));
+            }
+        );
+    }
+
+    /** @CADACTIVE - internal functions for row class rules */
+    private preProcessRowClassRules(): string[] {
+
+        let res: string[] = [];
+
+        this.processRowClassRules(
+            (className:string)=>{
+                res.push(className);
+            },
+            (className:string)=>{
+                // not catered for, if creating, no need
+                // to remove class as it was never there
+            }
+        );
+
+        return res;
     }
 
     private createCells(cols: Column[]): {template: string, cellComps: CellComp[]} {

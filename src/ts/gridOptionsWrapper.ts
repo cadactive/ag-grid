@@ -211,6 +211,7 @@ export class GridOptionsWrapper {
     public getRowClass() { return this.gridOptions.rowClass; }
     public getRowStyleFunc() { return this.gridOptions.getRowStyle; }
     public getRowClassFunc() { return this.gridOptions.getRowClass; }
+    public getRowClassRules() { return this.gridOptions.rowClassRules; }
     public getPostProcessPopupFunc(): (params: PostProcessPopupParams)=>void { return this.gridOptions.postProcessPopup; }
     public getDoesDataFlowerFunc(): (data: any)=>boolean { return this.gridOptions.doesDataFlower; }
     public getPaginationNumberFormatterFunc(): (params: PaginationNumberFormatterParams)=>string { return this.gridOptions.paginationNumberFormatter; }
@@ -455,7 +456,7 @@ export class GridOptionsWrapper {
             return Constants.LAYOUT_INTERVAL;
         }
     }
-    
+
     public getMinColWidth() {
         if (this.gridOptions.minColWidth > GridOptionsWrapper.MIN_COL_WIDTH) {
             return this.gridOptions.minColWidth;
@@ -647,7 +648,7 @@ export class GridOptionsWrapper {
         return !isNaN(value) && typeof value === 'number';
     }
 
-    // Material data table has strict guidelines about whitespace, and these values are different than the ones 
+    // Material data table has strict guidelines about whitespace, and these values are different than the ones
     // ag-grid uses by default. We override the default ones for the sake of making it better out of the box
     private specialForNewMaterial(defaultValue: number, materialValue: number): number {
             if (this.environment.getTheme() == "ag-theme-material") {

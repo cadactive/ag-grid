@@ -55,4 +55,27 @@ export class StylingService {
         }
     }
 
+    /** @CADACTIVE - internal functions for applying row class rules */
+    public processRowClassRules(rowClassRules:{ [cssClassName: string]: (Function | string) }, params:any, onApplicableClass:(className:string)=>void, onNotApplicableClass?:(className:string)=>void) {
+        let classRules = rowClassRules;
+        if (typeof classRules === 'object' && classRules !== null) {
+            let classNames = Object.keys(classRules);
+            for (let i = 0; i < classNames.length; i++) {
+                let className = classNames[i];
+                let rule = classRules[className];
+                let resultOfRule: any;
+                if (typeof rule === 'string') {
+                    resultOfRule = this.expressionService.evaluate(rule, params);
+                } else if (typeof rule === 'function') {
+                    resultOfRule = rule(params);
+                }
+
+                if (resultOfRule) {
+                    onApplicableClass(className);
+                } else if (onNotApplicableClass){
+                    onNotApplicableClass(className);
+                }
+            }
+        }
+    }
 }
